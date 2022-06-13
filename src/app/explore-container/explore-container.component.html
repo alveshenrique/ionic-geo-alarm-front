@@ -1,4 +1,5 @@
 <div id="container">
-  <strong>{{ name }}</strong>
-  <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <strong>{{ name }}</strong><br>
+  <ion-label><b>Your Location: </b>({{userLocation?.latitude ? (userLocation?.longitude ? userLocation?.latitude + ", " + userLocation?.longitude : "") : ""}})</ion-label><br>
+    <ion-button (click) = "askForGeolocationPermission()">Allow GPS</ion-button>
 </div>
