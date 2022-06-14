@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'ionic-geoAlarmFront',
+  appId: 'com.alveshenrique.geoalarm',
+  appName: 'GeoAlarm',
   webDir: 'www',
   bundledWebRuntime: false
 };
