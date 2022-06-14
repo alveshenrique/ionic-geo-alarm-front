@@ -1,25 +1,36 @@
-<div id="container">
-  <ion-card>
-    <ion-card-header>
-    </ion-card-header>
-  
-    <ion-card-content>
-      <ion-grid>
-        <ion-row text-center>
-          <ion-col>
-            <strong>{{ name }}</strong><br>
-            <ion-label><b>Your Location: </b>({{userLocation?.latitude ? (userLocation?.longitude ? userLocation?.latitude + ", " + userLocation?.longitude : "") : ""}})</ion-label><br>
-              <ion-button (click) = "askForGeolocationPermission()">Allow GPS</ion-button><br>
-              <div *ngIf="apiLoaded | async" >
-                <google-map [center]="center"
-                [zoom]="zoom" class="ion-no-padding"><map-marker *ngFor="let markerPosition of markerPositions"
-                  [position]="markerPosition"
-                  [options]="markerOptions"></map-marker></google-map>
-              </div>
+<ion-card>
+  <ion-card-header>
+    <ion-toolbar color="primary">
+      <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()"
+        placeholder="Search for a place"></ion-searchbar>
+    </ion-toolbar>
+    <ion-list [hidden]="autocompleteItems.length == 0">
+      <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+        {{ item.description }}
+      </ion-item>
+    </ion-list>
+  </ion-card-header>
 
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
-</div>
+</ion-card>
+<ion-card>
+
+  <ion-card-content>
+    <ion-grid>
+      <ion-row text-center>
+        <ion-col>
+          <!-- <strong>{{ name }}</strong><br>
+          <ion-label><b>Your Location: </b>({{userLocation?.latitude ? (userLocation?.longitude ? userLocation?.latitude
+            + ", " + userLocation?.longitude : "") : ""}})</ion-label><br> -->
+          <ion-button (click)="askForGeolocationPermission()">Use current position</ion-button><br>
+          <div *ngIf="apiLoaded | async">
+            <google-map [center]="center" [zoom]="zoom" class="ion-no-padding">
+              <map-marker *ngFor="let markerPosition of markerPositions" [position]="markerPosition"
+                [options]="markerOptions"></map-marker>
+            </google-map>
+          </div>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

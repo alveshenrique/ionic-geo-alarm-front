@@ -7,14 +7,26 @@ import { RouteReuseStrategy } from '@angular/router';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { AutoCompleteModule } from 'ionic4-auto-complete';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, CommonModule, HttpClientModule, HttpClientJsonpModule, GoogleMapsModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, Geolocation],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    CommonModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
+    GoogleMapsModule,
+    AutoCompleteModule],
+  providers: [{ 
+    provide: RouteReuseStrategy,
+    useClass: IonicRouteStrategy },
+    Geolocation],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
