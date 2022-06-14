@@ -32,3 +32,4 @@ npm-debug.log*
 /www
 /.firebase
 /android
+env.keys.ts

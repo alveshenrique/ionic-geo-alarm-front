@@ -6,7 +6,13 @@
     <ion-card-content>
       <strong>{{ name }}</strong><br>
       <ion-label><b>Your Location: </b>({{userLocation?.latitude ? (userLocation?.longitude ? userLocation?.latitude + ", " + userLocation?.longitude : "") : ""}})</ion-label><br>
-        <ion-button (click) = "askForGeolocationPermission()">Allow GPS</ion-button>
+        <ion-button (click) = "askForGeolocationPermission()">Allow GPS</ion-button><br>
+        <div *ngIf="apiLoaded | async">
+          <google-map [center]="center"
+          [zoom]="zoom"><map-marker *ngFor="let markerPosition of markerPositions"
+            [position]="markerPosition"
+            [options]="markerOptions"></map-marker></google-map>
+        </div>
     </ion-card-content>
   </ion-card>
 </div>
