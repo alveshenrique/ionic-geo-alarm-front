@@ -5,15 +5,11 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
-  },
-  "engines": {
-    "node": "16.15.1",
-    "npm": "8.11.0"
   },
   "private": true,
   "dependencies": {
@@ -35,7 +31,6 @@
     "@capacitor/status-bar": "1.0.8",
     "@ionic/angular": "^6.1.9",
     "cordova-plugin-geolocation": "^4.1.0",
-    "express": "^4.18.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "typescript": "~4.7.3",

@@ -1,5 +1,12 @@
 <div id="container">
-  <strong>{{ name }}</strong><br>
-  <ion-label><b>Your Location: </b>({{userLocation?.latitude ? (userLocation?.longitude ? userLocation?.latitude + ", " + userLocation?.longitude : "") : ""}})</ion-label><br>
-    <ion-button (click) = "askForGeolocationPermission()">Allow GPS</ion-button>
+  <ion-card>
+    <ion-card-header>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <strong>{{ name }}</strong><br>
+      <ion-label><b>Your Location: </b>({{userLocation?.latitude ? (userLocation?.longitude ? userLocation?.latitude + ", " + userLocation?.longitude : "") : ""}})</ion-label><br>
+        <ion-button (click) = "askForGeolocationPermission()">Allow GPS</ion-button>
+    </ion-card-content>
+  </ion-card>
 </div>
