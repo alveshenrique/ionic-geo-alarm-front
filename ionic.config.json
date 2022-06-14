@@ -1,5 +1,6 @@
 {
   "name": "ionic-geoAlarmFront",
+  "id": "GeoAlarm",
   "integrations": {
     "capacitor": {}
   },
