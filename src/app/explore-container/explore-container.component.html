@@ -1,19 +1,28 @@
 <ion-card>
-  <ion-card-header>
-    <ion-toolbar color="primary">
-      <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()"
-        placeholder="Search for a place"></ion-searchbar>
-    </ion-toolbar>
-    <ion-list [hidden]="autocompleteItems.length == 0">
-      <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
-        {{ item.description }}
-      </ion-item>
-    </ion-list>
-  </ion-card-header>
+  <ion-grid>
+    <ion-row text-center>
+      <ion-col size="10">
+        <!-- <ion-card-header> -->
+          <ion-toolbar color="primary">
+            <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()"
+              placeholder="Search for a place"></ion-searchbar>
+          </ion-toolbar>
+          <ion-list [hidden]="autocompleteItems.length == 0">
+            <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+              {{ item.description }}
+            </ion-item>
+          </ion-list>
+        <!-- </ion-card-header> -->
+      </ion-col>
+      <ion-col size="2" no-margin>
+        <ion-button class="alarm-btn" color="primary" expand="full"><ion-icon  size="large" name="alarm" slot="icon-only"></ion-icon> </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <ion-button>A</ion-button> -->
 
-</ion-card>
+<!-- </ion-card> -->
 <ion-card>
-
   <ion-card-content>
     <ion-grid>
       <ion-row text-center>
@@ -21,7 +30,7 @@
           <!-- <strong>{{ name }}</strong><br>
           <ion-label><b>Your Location: </b>({{userLocation?.latitude ? (userLocation?.longitude ? userLocation?.latitude
             + ", " + userLocation?.longitude : "") : ""}})</ion-label><br> -->
-          <ion-button (click)="askForGeolocationPermission()">Use current position</ion-button><br>
+          <!-- <ion-button (click)="askForGeolocationPermission()">Use current position</ion-button><br> -->
           <div *ngIf="apiLoaded | async">
             <google-map [center]="center" [zoom]="zoom" class="ion-no-padding">
               <map-marker *ngFor="let markerPosition of markerPositions" [position]="markerPosition"

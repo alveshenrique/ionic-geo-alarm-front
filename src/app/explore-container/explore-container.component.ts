@@ -38,6 +38,7 @@ export class ExploreContainerComponent implements OnInit {
       .pipe(
         map(() => {
             this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+            this.askForGeolocationPermission();
             return true;}),
           catchError(() => of(false)),
         );
@@ -48,18 +49,17 @@ export class ExploreContainerComponent implements OnInit {
   ngOnInit() {}
 
   askForGeolocationPermission() {
-    // if(this.geolocation) {
-    //   this.geolocation.getCurrentPosition().then(
-    //     (r) => {
-    //       this.userLocation.latitude = r.coords.latitude;
-    //       this.userLocation.longitude = r.coords.longitude;
-    //       this.placeMarker();
-    //     }
-    //   ).catch(
-    //     (e) => console.log("Error when getting location: ", e)
-    //   )
-    // }
-    this.getGeocodingByPlaceId("ChIJDxtwVnSzyJQRmob9t9S24RE");
+    if(this.geolocation) {
+      this.geolocation.getCurrentPosition().then(
+        (r) => {
+          this.userLocation.latitude = r.coords.latitude;
+          this.userLocation.longitude = r.coords.longitude;
+          this.placeMarker();
+        }
+      ).catch(
+        (e) => console.log("Error when getting location: ", e)
+      )
+    }
     }
 
     getGeocodingByHttp(place: string) {
