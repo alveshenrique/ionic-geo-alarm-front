@@ -55,6 +55,7 @@ export class ExploreContainerComponent implements OnInit {
           this.userLocation.latitude = r.coords.latitude;
           this.userLocation.longitude = r.coords.longitude;
           this.placeMarker();
+          this.getGeocodingByLatLng(this.center);
         }
       ).catch(
         (e) => console.log("Error when getting location: ", e)
@@ -90,6 +91,15 @@ export class ExploreContainerComponent implements OnInit {
       })
     }
 
+    getGeocodingByLatLng(latlng: google.maps.LatLngLiteral) {
+      let geocoder = new google.maps.Geocoder();
+      geocoder.geocode({'location' : latlng}, results => {
+        // console.log('Results from geocoding the latlng from the gps:')
+        // console.log(results[0].formatted_address);
+        this.autocomplete.input = results[0].formatted_address;
+      })
+    }
+
     private placeMarker() {
       this.center = {lat: this.userLocation.latitude, lng: this.userLocation.longitude};
       this.markerPositions = [{lat: this.userLocation.latitude, lng: this.userLocation.longitude}];
@@ -118,4 +128,7 @@ export class ExploreContainerComponent implements OnInit {
       
     }
 
+    showCurrentSelectedPosition() {
+      console.log(this.userLocation);
+    }
 }
