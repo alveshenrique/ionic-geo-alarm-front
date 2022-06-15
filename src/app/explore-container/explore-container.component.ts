@@ -128,7 +128,7 @@ export class ExploreContainerComponent implements OnInit {
       
     }
 
-    showCurrentSelectedPosition() {
-      console.log(this.userLocation);
-    }
+    // showCurrentSelectedPosition() {
+    //   console.log(this.userLocation);
+    // }
 }
