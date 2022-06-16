@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { Vibration } from '@awesome-cordova-plugins/vibration/ngx';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Location } from '../models/location';
@@ -33,7 +34,8 @@ export class ExploreContainerComponent implements OnInit {
   userLocation: Location = new Location();
   constructor(private geolocation: Geolocation,
     private httpClient: HttpClient,
-    public zone: NgZone) { 
+    public zone: NgZone,
+    private vibration: Vibration) { 
       this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=' + API_KEY + '&v=3.exp&libraries=places', 'callback')
       .pipe(
         map(() => {
@@ -131,4 +133,9 @@ export class ExploreContainerComponent implements OnInit {
     // showCurrentSelectedPosition() {
     //   console.log(this.userLocation);
     // }
+
+    vibrate() {
+      this.vibration.vibrate([2000,1000,2000]);
+      console.log("Vibrating... brrr");
+    }
 }

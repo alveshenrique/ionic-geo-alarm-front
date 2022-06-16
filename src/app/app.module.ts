@@ -5,6 +5,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { Vibration } from '@awesome-cordova-plugins/vibration/ngx';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AutoCompleteModule } from 'ionic4-auto-complete';
@@ -26,7 +27,8 @@ import { AppComponent } from './app.component';
   providers: [{ 
     provide: RouteReuseStrategy,
     useClass: IonicRouteStrategy },
-    Geolocation],
+    Geolocation,
+    Vibration],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
