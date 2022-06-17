@@ -30,13 +30,18 @@ export class ExploreContainerComponent implements OnInit {
   autocompleteItems: any[];
 
   // Other configs
-  text: string = "Initial Text";
   userLocation: Location = new Location();
+
+  // For testing
+  userPosition: google.maps.LatLng;
+  searchPosition: google.maps.LatLng;
+  distance;
+
   constructor(private geolocation: Geolocation,
     private httpClient: HttpClient,
     public zone: NgZone,
     private vibration: Vibration) { 
-      this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=' + API_KEY + '&v=3.exp&libraries=places', 'callback')
+      this.apiLoaded = httpClient.jsonp('https://maps.googleapis.com/maps/api/js?key=' + API_KEY + '&v=3.exp&libraries=places,geometry', 'callback')
       .pipe(
         map(() => {
             this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
@@ -56,6 +61,7 @@ export class ExploreContainerComponent implements OnInit {
         (r) => {
           this.userLocation.latitude = r.coords.latitude;
           this.userLocation.longitude = r.coords.longitude;
+          this.userPosition = new google.maps.LatLng(r.coords.latitude, r.coords.longitude);
           this.placeMarker();
           this.getGeocodingByLatLng(this.center);
         }
@@ -104,7 +110,9 @@ export class ExploreContainerComponent implements OnInit {
 
     private placeMarker() {
       this.center = {lat: this.userLocation.latitude, lng: this.userLocation.longitude};
+      this.searchPosition = new google.maps.LatLng(this.center);
       this.markerPositions = [{lat: this.userLocation.latitude, lng: this.userLocation.longitude}];
+      this.distance = google.maps.geometry.spherical.computeDistanceBetween(this.searchPosition, this.userPosition);
     }
 
     updateSearchResults(){
