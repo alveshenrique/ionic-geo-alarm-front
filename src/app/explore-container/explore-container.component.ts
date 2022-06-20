@@ -35,6 +35,7 @@ export class ExploreContainerComponent implements OnInit {
   // For testing
   userPosition: google.maps.LatLng;
   searchPosition: google.maps.LatLng;
+  secondPosition: google.maps.LatLng;
   distance;
 
   constructor(private geolocation: Geolocation,
@@ -53,11 +54,12 @@ export class ExploreContainerComponent implements OnInit {
     this.autocompleteItems = [];
     }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   askForGeolocationPermission() {
     if(this.geolocation) {
-      this.geolocation.getCurrentPosition().then(
+      this.geolocation.getCurrentPosition({enableHighAccuracy: true}).then(
         (r) => {
           this.userLocation.latitude = r.coords.latitude;
           this.userLocation.longitude = r.coords.longitude;
@@ -67,7 +69,13 @@ export class ExploreContainerComponent implements OnInit {
         }
       ).catch(
         (e) => console.log("Error when getting location: ", e)
-      )
+      );
+      this.geolocation.watchPosition().subscribe({
+        next: (r : GeolocationPosition) => {
+          this.secondPosition = new google.maps.LatLng(r.coords.latitude, r.coords.longitude);
+          this.updateDistance(this.userPosition, this.secondPosition);
+        } 
+      });
     }
     }
 
@@ -112,7 +120,11 @@ export class ExploreContainerComponent implements OnInit {
       this.center = {lat: this.userLocation.latitude, lng: this.userLocation.longitude};
       this.searchPosition = new google.maps.LatLng(this.center);
       this.markerPositions = [{lat: this.userLocation.latitude, lng: this.userLocation.longitude}];
-      this.distance = google.maps.geometry.spherical.computeDistanceBetween(this.searchPosition, this.userPosition);
+      this.updateDistance(this.searchPosition, this.userPosition);
+    }
+
+    updateDistance(a: google.maps.LatLng, b: google.maps.LatLng) {
+      this.distance = google.maps.geometry.spherical.computeDistanceBetween(a,b);
     }
 
     updateSearchResults(){
@@ -146,4 +158,16 @@ export class ExploreContainerComponent implements OnInit {
       this.vibration.vibrate([2000,1000,2000]);
       console.log("Vibrating... brrr");
     }
+
+    // updateSeachPosition() {
+    //   // this.geolocation.getCurrentPosition({enableHighAccuracy: true}).then(
+    //   //   (r) => {
+    //   //     console.log("User position: " + this.userPosition);
+    //   //     this.secondPosition = new google.maps.LatLng(r.coords.latitude, r.coords.longitude);
+    //   //     this.updateDistance(this.userPosition, this.secondPosition);
+    //   //     console.log("Second position: " + this.secondPosition);
+    //   //   })
+    //   this.askForGeolocationPermission();
+    //   this.updateDistance(this.userPosition, this.secondPosition);
+    // }
 }
