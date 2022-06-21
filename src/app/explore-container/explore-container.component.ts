@@ -125,6 +125,7 @@ export class ExploreContainerComponent implements OnInit {
 
     updateDistance(a: google.maps.LatLng, b: google.maps.LatLng) {
       this.distance = google.maps.geometry.spherical.computeDistanceBetween(a,b);
+
     }
 
     updateSearchResults(){
